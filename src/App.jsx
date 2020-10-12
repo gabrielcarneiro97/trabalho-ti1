@@ -6,15 +6,14 @@ import PrivateRoute from './components/PrivateRoute';
 
 import Login from './pages/Login';
 import Main from './pages/Main';
+import Profile from './pages/Profile';
 
 import Navbar from './components/Navbar';
 import UserProvider from './contexts/user';
 
 const { Header, Content, Footer } = Layout;
 
-function Profile() {
-  return <div>Profile</div>;
-}
+
 
 function App() {
   return (

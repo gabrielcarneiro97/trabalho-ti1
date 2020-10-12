@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import firebase from 'firebase';
 import { Button } from 'antd';
 import { LoginOutlined, LogoutOutlined } from '@ant-design/icons';

@@ -44,7 +44,7 @@ function LoginForm() {
         name="username"
         rules={[{ required: true, message: 'Insira um e-mail válido!', pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i }]}
       >
-        <Input />
+        <Input disabled />
       </Form.Item>
 
       <Form.Item
@@ -52,13 +52,13 @@ function LoginForm() {
         name="password"
         rules={[{ required: true, message: 'Insira sua senha!' }]}
       >
-        <Input.Password />
+        <Input.Password disabled />
       </Form.Item>
 
     <Row justify="center">
       <Col span={16}>
         <Form.Item style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-          <Button style={{ width: '100%' }} type="primary" htmlType="submit">
+          <Button disabled style={{ width: '100%' }} type="primary" htmlType="submit">
             Entrar
           </Button>
         </Form.Item>
