@@ -6,16 +6,21 @@ function PrivateRoute(props) {
   const { currentUser } = firebase.auth();
   const history = useHistory();
 
-  if (!currentUser) {
-    return <Redirect to={{
-      pathname: '/login',
-      state: {
-        goTo: history.location,
-      }
-    }} />;
-  }
+  const { component: Component, ...rest } = props;
+  const toRender = (propsRender) => (
+    currentUser
+      ? <Component {...propsRender} />
+      : (
+        <Redirect to={{
+          pathname: '/login',
+          state: {
+            goTo: history.location,
+          }
+        }} />
+      )
+  );
 
-  return <Route {...props} />;
+  return <Route {...rest} render={toRender} />;
 }
 
 export default PrivateRoute;
