@@ -5,12 +5,9 @@ import { Layout } from 'antd';
 import PrivateRoute from './components/PrivateRoute';
 
 import Login from './pages/Login';
+import Main from './pages/Main';
 
 const { Header, Content, Footer } = Layout;
-
-function Main() {
-  return <div>Main</div>;
-}
 
 function Profile() {
   return <div>Profile</div>;
