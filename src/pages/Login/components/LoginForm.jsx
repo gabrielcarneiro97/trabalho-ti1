@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Input, Button, Form, Row, Col } from 'antd';
-import firebase from 'firebase';
 
 import GoogleLoginBtn from './GoogleLoginBtn';
+import { useLocation } from 'react-router-dom';
+import { UserContext } from '../../../contexts/user';
 
 const layout = {
   labelCol: { span: 4 },
@@ -10,6 +12,15 @@ const layout = {
 };
 
 function LoginForm() {
+  const location = useLocation();
+  const user = useContext(UserContext);
+
+  const { from } = location.state || { from: { pathname: '/profile' } };
+
+  if (user !== null) {
+    return <Redirect to={from} />;
+  }
+
   const onFinish = values => {
     console.log('Success:', values);
   };
@@ -17,8 +28,6 @@ function LoginForm() {
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo);
   };
-
-  console.log(firebase.auth().currentUser);
 
   return (
     <Form

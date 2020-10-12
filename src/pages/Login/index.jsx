@@ -6,7 +6,6 @@ import LoginForm from './components/LoginForm';
 
 function Login() {
   const location = useLocation();
-  console.log(location.state);
   return (
     <Row justify="center" align="middle" style={{ minHeight: '80vh' }}>
       <Col span={12}>

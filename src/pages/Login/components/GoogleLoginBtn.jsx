@@ -3,13 +3,18 @@ import { Button } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
 
 import firebase from 'firebase';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
 function GoogleLoginBtn() {
+  const location = useLocation();
+  const history = useHistory();
+
   const onClick = () => {
-    firebase.auth().signInWithPopup(provider).then((data) => {
-      console.log(data);
+    const { from } = location.state || { from: { pathname: '/profile' } };
+    firebase.auth().signInWithPopup(provider).then(() => {
+      history.push(from);
     });
   };
 
