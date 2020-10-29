@@ -2,7 +2,10 @@ import React, { useContext } from 'react';
 import { UserContext } from '../../contexts/user';
 
 function Profile() {
-  const { firebaseUser } = useContext(UserContext);
+  const state = useContext(UserContext);
+  const { firebaseUser } = state;
+
+  console.log(state);
 
   return (
     <div>

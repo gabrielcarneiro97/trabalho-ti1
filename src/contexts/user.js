@@ -8,27 +8,36 @@ function UserProvider(props) {
   const [isAuth, setIsAuth] = useState(!!firebase.auth().currentUser);
   const [dbUser, setDbUser] = useState(null);
 
-  useEffect(() => firebase.auth().onAuthStateChanged(async () => {
-    const db = firebase.firestore();
-    const { currentUser } = firebase.auth();
+  useEffect(() => {
+    let userDocUnsub = null;
+    const authUnsub = firebase.auth().onAuthStateChanged(async (currentUser) => {
+      const db = firebase.firestore();
 
-    const usersCollection = db.collection('users');
-    const userDoc = await usersCollection.doc(currentUser.uid).get();
-    const userDocData = userDoc.data();
+      const usersCollection = db.collection('users');
+      const userDoc = usersCollection.doc(currentUser.uid);
 
-    if (!userDocData) {
-      const newDbUser = {
-        pacientes: [],
-      };
-      await usersCollection.doc(currentUser.uid).set(newDbUser);
-      setDbUser(newDbUser);
-    } else {
-      setDbUser(userDocData);
+      userDocUnsub = userDoc.onSnapshot(async (doc) => {
+        const userDocData = doc.data();
+
+        if (!userDocData) {
+          const newDbUser = {
+            pacientes: [],
+          };
+          await usersCollection.doc(currentUser.uid).set(newDbUser);
+        } else {
+          setDbUser(userDocData);
+        }
+      });
+
+      setFirebaseUser(currentUser);
+      setIsAuth(!!currentUser);
+    });
+
+    return () => {
+      authUnsub();
+      if (userDocUnsub) userDocUnsub();
     }
-
-    setFirebaseUser(currentUser);
-    setIsAuth(!!currentUser);
-  }), []);
+  }, []);
 
   const state = {
     isAuth,
