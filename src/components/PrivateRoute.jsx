@@ -1,21 +1,22 @@
-import React from 'react';
-import firebase from 'firebase';
-import { Route, Redirect, useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import { UserContext } from '../contexts/user';
 
 function PrivateRoute(props) {
-  const { currentUser } = firebase.auth();
-  const history = useHistory();
+  const user = useContext(UserContext);
 
-  if (!currentUser) {
-    return <Redirect to={{
-      pathname: '/login',
-      state: {
-        goTo: history.location,
-      }
-    }} />;
-  }
+  const { component: Component, ...rest } = props;
+  const toRender = (propsRender) => (
+    user
+      ? <Component {...propsRender} />
+      : (
+        <Redirect to={{
+          pathname: '/login',
+        }} />
+      )
+  );
 
-  return <Route {...props} />;
+  return <Route {...rest} render={toRender} />;
 }
 
 export default PrivateRoute;
