@@ -17,7 +17,7 @@ function LoginLogoutBtn() {
     history.push('/login');
   };
 
-  return <Button onClick={onClick} type="link" icon={ user ? <LogoutOutlined /> : <LoginOutlined /> }/>;
+  return <Button onClick={onClick} type="link" icon={user ? <LogoutOutlined /> : <LoginOutlined />} />;
 }
 
 export default LoginLogoutBtn;

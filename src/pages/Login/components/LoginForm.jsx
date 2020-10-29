@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
-import { Input, Button, Form, Row, Col } from 'antd';
+import { Redirect, useLocation } from 'react-router-dom';
+import {
+  Input, Button, Form, Row, Col,
+} from 'antd';
 
 import GoogleLoginBtn from './GoogleLoginBtn';
-import { useLocation } from 'react-router-dom';
+
 import { UserContext } from '../../../contexts/user';
 
 const layout = {
@@ -21,17 +23,17 @@ function LoginForm() {
     return <Redirect to={from} />;
   }
 
-  const onFinish = values => {
+  const onFinish = (values) => {
     console.log('Success:', values);
   };
 
-  const onFinishFailed = errorInfo => {
+  const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
   return (
     <Form
-      {...layout}
+      {...layout /* eslint-disable-line */}
       labelAlign="left"
       size="large"
       name="login"
@@ -55,23 +57,23 @@ function LoginForm() {
         <Input.Password disabled />
       </Form.Item>
 
-    <Row justify="center">
-      <Col span={16}>
-        <Form.Item style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-          <Button disabled style={{ width: '100%' }} type="primary" htmlType="submit">
-            Entrar
-          </Button>
-        </Form.Item>
-      </Col>
-    </Row>
+      <Row justify="center">
+        <Col span={16}>
+          <Form.Item style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <Button disabled style={{ width: '100%' }} type="primary" htmlType="submit">
+              Entrar
+            </Button>
+          </Form.Item>
+        </Col>
+      </Row>
 
-    <Row justify="center">
-      <Col span={16}>
-        <Form.Item style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-          <GoogleLoginBtn />
-        </Form.Item>
-      </Col>
-    </Row>
+      <Row justify="center">
+        <Col span={16}>
+          <Form.Item style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <GoogleLoginBtn />
+          </Form.Item>
+        </Col>
+      </Row>
 
     </Form>
   );

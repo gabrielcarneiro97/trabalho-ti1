@@ -4,7 +4,10 @@ import LoginLogoutBtn from './LoginLogoutBtn';
 
 function Navbar() {
   return (
-    <Row  justify="space-between" style={{ color: '#fff' }}>
+    <Row
+      justify="space-between"
+      style={{ color: '#fff' }}
+    >
       <Col>
         REMEMBER
       </Col>

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { UserContext } from '../contexts/user';
@@ -12,7 +13,8 @@ function PrivateRoute(props) {
       : (
         <Redirect to={{
           pathname: '/login',
-        }} />
+        }}
+        />
       )
   );
 

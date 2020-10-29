@@ -25,5 +25,4 @@ function GoogleLoginBtn() {
   );
 }
 
-
 export default GoogleLoginBtn;

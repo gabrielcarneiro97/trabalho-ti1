@@ -7,10 +7,14 @@ function Profile() {
   return (
     <div>
       <p>
-        <b>E-mail:</b> {user.email}
+        <b>E-mail:</b>
+        {' '}
+        {user.email}
       </p>
       <p>
-        <b>Nome:</b> {user.displayName}
+        <b>Nome:</b>
+        {' '}
+        {user.displayName}
       </p>
     </div>
   );

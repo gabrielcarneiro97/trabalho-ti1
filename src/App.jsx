@@ -13,8 +13,6 @@ import UserProvider from './contexts/user';
 
 const { Header, Content, Footer } = Layout;
 
-
-
 function App() {
   return (
     <UserProvider>
@@ -23,10 +21,13 @@ function App() {
           <Header>
             <Navbar />
           </Header>
-          <Content style={{ minHeight: '80vh', backgroundColor: 'rgba(255, 255, 255, 0.2)', margin: '2vw', padding: '1vw' }}>
-              <Route exact path="/" component={Main} />
-              <Route exact path="/login" component={Login} />
-              <PrivateRoute exact path="/profile" component={Profile} />
+          <Content style={{
+            minHeight: '80vh', backgroundColor: 'rgba(255, 255, 255, 0.2)', margin: '2vw', padding: '1vw',
+          }}
+          >
+            <Route exact path="/" component={Main} />
+            <Route exact path="/login" component={Login} />
+            <PrivateRoute exact path="/profile" component={Profile} />
           </Content>
           <Footer />
         </Layout>
