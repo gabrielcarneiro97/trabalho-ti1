@@ -7,17 +7,17 @@ import { UserContext } from '../contexts/user';
 
 function LoginLogoutBtn() {
   const history = useHistory();
-  const user = useContext(UserContext);
+  const { isAuth } = useContext(UserContext);
 
   const onClick = () => {
-    if (user) {
+    if (isAuth) {
       firebase.auth().signOut();
     }
 
     history.push('/login');
   };
 
-  return <Button onClick={onClick} type="link" icon={user ? <LogoutOutlined /> : <LoginOutlined />} />;
+  return <Button onClick={onClick} type="link" icon={isAuth ? <LogoutOutlined /> : <LoginOutlined />} />;
 }
 
 export default LoginLogoutBtn;

@@ -4,11 +4,11 @@ import { Route, Redirect } from 'react-router-dom';
 import { UserContext } from '../contexts/user';
 
 function PrivateRoute(props) {
-  const user = useContext(UserContext);
+  const { isAuth } = useContext(UserContext);
 
   const { component: Component, ...rest } = props;
   const toRender = (propsRender) => (
-    user
+    isAuth
       ? <Component {...propsRender} />
       : (
         <Redirect to={{

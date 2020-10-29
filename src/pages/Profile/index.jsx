@@ -2,19 +2,19 @@ import React, { useContext } from 'react';
 import { UserContext } from '../../contexts/user';
 
 function Profile() {
-  const user = useContext(UserContext);
+  const { firebaseUser } = useContext(UserContext);
 
   return (
     <div>
       <p>
         <b>E-mail:</b>
         {' '}
-        {user.email}
+        {firebaseUser.email}
       </p>
       <p>
         <b>Nome:</b>
         {' '}
-        {user.displayName}
+        {firebaseUser.displayName}
       </p>
     </div>
   );

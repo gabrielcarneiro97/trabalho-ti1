@@ -15,11 +15,11 @@ const layout = {
 
 function LoginForm() {
   const location = useLocation();
-  const user = useContext(UserContext);
+  const { isAuth } = useContext(UserContext);
 
   const { from } = location.state || { from: { pathname: '/profile' } };
 
-  if (user !== null) {
+  if (isAuth !== false) {
     return <Redirect to={from} />;
   }
 
