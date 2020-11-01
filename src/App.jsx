@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 
 import Navbar from './components/Navbar';
 import UserProvider from './contexts/user';
+import Historia from './pages/Historia';
 
 const { Header, Content, Footer } = Layout;
 
@@ -27,6 +28,7 @@ function App() {
           >
             <Route exact path="/" component={Main} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/historia" component={Historia} />
             <PrivateRoute exact path="/profile" component={Profile} />
           </Content>
           <Footer />
