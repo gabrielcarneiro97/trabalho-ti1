@@ -5,37 +5,49 @@ import firebase from 'firebase';
 import { useContext } from 'react';
 import { useEffect } from 'react';
 import { UserContext } from '../../../contexts/user';
-
-const { Option } = Select;
+import NewPacienteModal from './NewPacienteModal';
 
 export default function PacienteSelector() {
   const db = firebase.firestore();
   const { userDb } = useContext(UserContext);
 
   const [pacientes, setPacientes] = useState([]);
+  const [value, setValue] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const pacientesCollection = db.collection('pacientes');
-    const pacientesData = Promise.all(
+    Promise.all(
       userDb?.pacientes.map(
         async (pacienteId) => {
           return (await pacientesCollection.doc(pacienteId).get()).data();
         },
       ) || [],
-    );
-    setPacientes(pacientesData);
+    ).then(setPacientes);
   }, [userDb]);
 
   const select = (value) => {
-    console.log(v);
+    if (value === 'add') {
+      setShowModal(true);
+      return setValue('');
+    }
+    setValue(value);
   }
 
-  return (
-    <Select onChange={select} style={{ width: '30vw' }}>
+  const closeModal = () => setShowModal(false);
 
-      <Option value="add">
-        Adicionar Paciente
-      </Option>
-    </Select>
+  const options = pacientes.map((e) => ({ label: e.nome, value: e.id }));
+  options.push({ label: 'Adicionar Paciente', value: 'add' });
+
+  return (
+    <>
+    <Select
+      style={{ width: '30vw' }}
+      onChange={select}
+      value={value}
+      options={options}
+    />
+    <NewPacienteModal visible={showModal} onCancel={closeModal} />
+    </>
   );
 }
