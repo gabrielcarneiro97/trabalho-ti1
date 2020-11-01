@@ -21,6 +21,7 @@ function UserProvider(props) {
 
         if (!userDocData) {
           const newDbUser = {
+            email: currentUser.email,
             pacientes: [],
           };
           await usersCollection.doc(currentUser.uid).set(newDbUser);
