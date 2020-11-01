@@ -24,7 +24,7 @@ function Navbar() {
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[pathname]}>
             <Menu.Item key="/" onClick={goto('/')}>Início</Menu.Item>
             <Menu.Item key="/historia" onClick={goto('/historia')}>História</Menu.Item>
-            <Menu.Item key="/clinicas">Clínicas</Menu.Item>
+            <Menu.Item key="/mapa" onClick={goto('/mapa')}>Clínicas</Menu.Item>
             <Menu.Item key="/profile" onClick={goto('/profile')}>Perfil</Menu.Item>
           </Menu>
           </Col>
