@@ -7,6 +7,7 @@ function UserProvider(props) {
   const [firebaseUser, setFirebaseUser] = useState(firebase.auth().currentUser);
   const [isAuth, setIsAuth] = useState(!!firebase.auth().currentUser);
   const [dbUser, setDbUser] = useState(null);
+  const [pacientes, setPacientes] = useState([]);
 
   useEffect(() => {
     let userDocUnsub = null;

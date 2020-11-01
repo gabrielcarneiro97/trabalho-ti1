@@ -1,11 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import firebase from 'firebase';
+import { UserContext } from './user';
 
 export const PacienteContext = React.createContext();
 
 function PacienteProvider(props) {
   const [id, setId] = useState(null);
   const [pacienteDb, setPacienteDb] = useState(null);
+
+  const { dbUser } = useContext(UserContext);
+
+  useEffect(() => {
+    if (dbUser && dbUser.pacientes.length > 0 && !id) {
+      setId(dbUser.pacientes[0] || null);
+    }
+  }, [dbUser]);
 
   useEffect(() => {
     const db = firebase.firestore();
@@ -21,7 +30,7 @@ function PacienteProvider(props) {
       });
     }
 
-    return pacienteUnsub;
+    if(pacienteUnsub) return pacienteUnsub;
   }, [id]);
 
   const changePaciente = setId;
@@ -29,16 +38,11 @@ function PacienteProvider(props) {
   const state = {
     id,
     pacienteDb,
-  };
-  const setters = {
-    setId,
-  };
-  const methods = {
     changePaciente,
   };
 
   return (
-    <UserContext.Provider value={{ state, setters, methods }}>
+    <UserContext.Provider value={state}>
       {props.children}
     </UserContext.Provider>
   )
