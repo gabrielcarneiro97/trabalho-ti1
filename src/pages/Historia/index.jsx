@@ -71,9 +71,9 @@ export default function Historia() {
             height="500"
             width="100%"
             src="https://www.youtube.com/embed/oBqIFoua1Qg"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
+            allowFullScreen
           />
         </Col>
         <Col span={12}>
@@ -81,9 +81,9 @@ export default function Historia() {
             height="500"
             width="100%"
             src="https://www.youtube.com/embed/NhXl0ZrFQXY"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
+            allowFullScreen
           />
         </Col>
       </Row>
