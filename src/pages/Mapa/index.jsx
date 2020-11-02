@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '100%',
@@ -7,39 +7,29 @@ const containerStyle = {
 };
 
 const center = {
-  lat: -3.745,
-  lng: -38.523
+  lat: -19.9179462,
+  lng: -44.0300017,
 };
 
+const API_KEY = 'AIzaSyD0J4q5DEqj51zWMpiez9VmfT51gyoAPi0';
+
 function Mapa() {
-  const [map, setMap] = React.useState(null)
-
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
-    setMap(map)
-  }, [])
-
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
-
   return (
     <LoadScript
-      googleMapsApiKey="AIzaSyD0J4q5DEqj51zWMpiez9VmfT51gyoAPi0"
+      googleMapsApiKey={API_KEY}
     >
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
         zoom={10}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
       >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
+        <Marker
+          position={{ lat: -19.8584195, lng: -43.9788657 }}
+          title="Igrejinha da Pampulha"
+          clickable
+        />
       </GoogleMap>
     </LoadScript>
   )
 }
-
 export default React.memo(Mapa);
