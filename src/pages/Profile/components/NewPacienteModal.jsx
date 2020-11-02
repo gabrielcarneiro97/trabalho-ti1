@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import firebase from 'firebase';
 import { Modal, Form, Input, Button, DatePicker, Divider } from 'antd';
+import { useContext } from 'react';
+import { UserContext } from '../../../contexts/user';
 
 export default function NewPacienteModal(props) {
   const { visible, onCancel } = props;
 
-  const onFinish = (values) => {
+  const [loading, setLoading] = useState(false);
+  const userContext = useContext(UserContext);
+  const { userId } = userContext;
+
+  const db = firebase.firestore();
+  const pacientesCollection = db.collection('pacientes');
+  const usersCollection = db.collection('users');
+
+  const onFinish = async (values) => {
+    setLoading(true);
+
+    const doc = await pacientesCollection.add({
+      nome: values.nome,
+      nascimento: values.nascimento.toDate(),
+    });
+
+    await usersCollection.doc(userId).update({
+      pacientes: firebase.firestore.FieldValue.arrayUnion(doc),
+    });
+
+    setLoading(false);
     console.log('Success:', values);
   };
 
@@ -42,7 +65,7 @@ export default function NewPacienteModal(props) {
         </Form.Item>
         <Divider />
         <Form.Item style={{ textAlign: 'end' }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={loading}>
           Cadastrar
         </Button>
       </Form.Item>

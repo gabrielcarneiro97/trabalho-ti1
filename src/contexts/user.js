@@ -5,6 +5,7 @@ export const UserContext = React.createContext();
 
 function UserProvider(props) {
   const [firebaseUser, setFirebaseUser] = useState(firebase.auth().currentUser);
+  const [userId, setUserId] = useState(firebase.auth().currentUser?.uid || null);
   const [isAuth, setIsAuth] = useState(!!firebase.auth().currentUser);
   const [dbUser, setDbUser] = useState(null);
   const [pacientes, setPacientes] = useState([]);
@@ -31,6 +32,7 @@ function UserProvider(props) {
         }
       });
 
+      setUserId(currentUser.uid);
       setFirebaseUser(currentUser);
       setIsAuth(!!currentUser);
     });
@@ -45,6 +47,7 @@ function UserProvider(props) {
     isAuth,
     firebaseUser,
     dbUser,
+    userId,
   };
 
   return (

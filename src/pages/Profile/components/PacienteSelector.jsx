@@ -1,36 +1,41 @@
 import React, { useState } from 'react';
 import { Select } from 'antd';
-import firebase from 'firebase';
 
 import { useContext } from 'react';
 import { useEffect } from 'react';
 import { UserContext } from '../../../contexts/user';
 import NewPacienteModal from './NewPacienteModal';
+import { PacienteContext } from '../../../contexts/paciente';
 
 export default function PacienteSelector() {
-  const db = firebase.firestore();
-  const { userDb } = useContext(UserContext);
+  const { dbUser } = useContext(UserContext);
+  const { changePaciente } = useContext(PacienteContext);
 
   const [pacientes, setPacientes] = useState([]);
   const [value, setValue] = useState('');
   const [showModal, setShowModal] = useState(false);
 
+
   useEffect(() => {
-    const pacientesCollection = db.collection('pacientes');
     Promise.all(
-      userDb?.pacientes.map(
-        async (pacienteId) => {
-          return (await pacientesCollection.doc(pacienteId).get()).data();
+      dbUser?.pacientes.map(
+        async (pacienteDoc) => {
+          const paciente = (await pacienteDoc.get()).data();
+          return {
+            nome: paciente.nome,
+            id: pacienteDoc.id,
+          }
         },
       ) || [],
     ).then(setPacientes);
-  }, [userDb]);
+  }, [dbUser]);
 
   const select = (value) => {
     if (value === 'add') {
       setShowModal(true);
       return setValue('');
     }
+    changePaciente(value);
     setValue(value);
   }
 
