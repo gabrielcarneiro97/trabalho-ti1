@@ -33,7 +33,8 @@ function LoginForm() {
 
   return (
     <Form
-      {...layout /* eslint-disable-line */}
+      labelCol={{ span: 4 }}
+      wrapperCol={{ span: 20 }}
       labelAlign="left"
       size="large"
       name="login"

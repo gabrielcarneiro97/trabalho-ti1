@@ -27,7 +27,7 @@ function App() {
           >
             <Route exact path="/" component={Main} />
             <Route exact path="/login" component={Login} />
-            <PrivateRoute exact path="/profile" component={Profile} />
+            <PrivateRoute path="/profile" component={Profile} />
           </Content>
           <Footer />
         </Layout>
