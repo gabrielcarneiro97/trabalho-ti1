@@ -27,7 +27,6 @@ function Profile() {
             </Descriptions>
           )
         }
-
       </PageHeader>
     </>
   );

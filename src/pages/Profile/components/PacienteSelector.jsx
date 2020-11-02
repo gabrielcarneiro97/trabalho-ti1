@@ -52,7 +52,7 @@ export default function PacienteSelector() {
       value={value}
       options={options}
     />
-    <NewPacienteModal visible={showModal} onCancel={closeModal} />
+    <NewPacienteModal visible={showModal} onCancel={closeModal} onEnd={closeModal} />
     </>
   );
 }

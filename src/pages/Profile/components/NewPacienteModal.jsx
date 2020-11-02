@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { UserContext } from '../../../contexts/user';
 
 export default function NewPacienteModal(props) {
-  const { visible, onCancel } = props;
+  const { visible, onCancel, onEnd } = props;
 
   const [loading, setLoading] = useState(false);
   const userContext = useContext(UserContext);
@@ -28,6 +28,7 @@ export default function NewPacienteModal(props) {
     });
 
     setLoading(false);
+    if (onEnd) onEnd();
     console.log('Success:', values);
   };
 
