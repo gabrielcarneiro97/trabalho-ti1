@@ -24,8 +24,28 @@ function Mapa() {
         zoom={10}
       >
         <Marker
-          position={{ lat: -19.8584195, lng: -43.9788657 }}
-          title="Igrejinha da Pampulha"
+          position={{ lat: -19.9478455, lng: -43.9231682 }}
+          title="Viver Bem Casa de Repouso"
+          clickable
+        />
+        <Marker
+          position={{ lat: -19.8584148, lng: -43.873551 }}
+          title="Casa de Repouso Pró-Vida"
+          clickable
+        />
+        <Marker
+          position={{ lat: -19.9061894, lng: -43.9091845 }}
+          title="Casa de Repouso Lar Doce Lar"
+          clickable
+        />
+        <Marker
+          position={{ lat: -19.9087908, lng: -43.9596223 }}
+          title="Vida Digna - Residência para Idosos"
+          clickable
+        />
+        <Marker
+          position={{ lat: -19.8529926, lng: -43.9930869 }}
+          title="Pampulha Village Casa de Repouso para Idosos BH"
           clickable
         />
       </GoogleMap>
