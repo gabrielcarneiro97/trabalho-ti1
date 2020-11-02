@@ -15,11 +15,11 @@ const layout = {
 
 function LoginForm() {
   const location = useLocation();
-  const user = useContext(UserContext);
+  const { isAuth } = useContext(UserContext);
 
   const { from } = location.state || { from: { pathname: '/profile' } };
 
-  if (user !== null) {
+  if (isAuth !== false) {
     return <Redirect to={from} />;
   }
 
@@ -33,7 +33,8 @@ function LoginForm() {
 
   return (
     <Form
-      {...layout /* eslint-disable-line */}
+      labelCol={{ span: 4 }}
+      wrapperCol={{ span: 20 }}
       labelAlign="left"
       size="large"
       name="login"

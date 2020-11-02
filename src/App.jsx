@@ -31,7 +31,7 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/historia" component={Historia} />
             <Route exact path="/mapa" component={Mapa} />
-            <PrivateRoute exact path="/profile" component={Profile} />
+            <PrivateRoute path="/profile" component={Profile} />
           </Content>
           <Footer />
         </Layout>

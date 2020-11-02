@@ -1,23 +1,36 @@
 import React, { useContext } from 'react';
-import { UserContext } from '../../contexts/user';
+import { PageHeader, Descriptions } from 'antd';
+import moment from 'moment';
+
+import PacienteProvider, { PacienteContext } from '../../contexts/paciente';
+import PacienteSelector from './components/PacienteSelector';
 
 function Profile() {
-  const user = useContext(UserContext);
+  const paciente = useContext(PacienteContext);
+  const { pacienteDb } = paciente;
 
   return (
-    <div>
-      <p>
-        <b>E-mail:</b>
-        {' '}
-        {user.email}
-      </p>
-      <p>
-        <b>Nome:</b>
-        {' '}
-        {user.displayName}
-      </p>
-    </div>
+    <>
+      <PageHeader
+        ghost={false}
+        title="Ficha do Paciente"
+        extra={[
+          <PacienteSelector key="1" />
+        ]}
+      >
+        {
+          pacienteDb
+          && (
+            <Descriptions size="small" column={3}>
+              <Descriptions.Item label="Nome">{pacienteDb?.nome}</Descriptions.Item>
+              <Descriptions.Item label="Nascimento">{moment(pacienteDb?.nascimento.seconds * 1000).format('DD/MM/YYYY')}</Descriptions.Item>
+            </Descriptions>
+          )
+        }
+
+      </PageHeader>
+    </>
   );
 }
 
-export default Profile;
+export default () => <PacienteProvider><Profile/></PacienteProvider>;
