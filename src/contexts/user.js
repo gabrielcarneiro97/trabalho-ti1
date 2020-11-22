@@ -13,28 +13,30 @@ function UserProvider(props) {
   useEffect(() => {
     let userDocUnsub = null;
     const authUnsub = firebase.auth().onAuthStateChanged(async (currentUser) => {
-      const db = firebase.firestore();
+      if (currentUser) {
+        const db = firebase.firestore();
 
-      const usersCollection = db.collection('users');
-      const userDoc = usersCollection.doc(currentUser.uid);
+        const usersCollection = db.collection('users');
+        const userDoc = usersCollection.doc(currentUser.uid);
 
-      userDocUnsub = userDoc.onSnapshot(async (doc) => {
-        const userDocData = doc.data();
+        userDocUnsub = userDoc.onSnapshot(async (doc) => {
+          const userDocData = doc.data();
 
-        if (!userDocData) {
-          const newDbUser = {
-            email: currentUser.email,
-            pacientes: [],
-          };
-          await usersCollection.doc(currentUser.uid).set(newDbUser);
-        } else {
-          setDbUser(userDocData);
-        }
-      });
+          if (!userDocData) {
+            const newDbUser = {
+              email: currentUser.email,
+              pacientes: [],
+            };
+            await usersCollection.doc(currentUser.uid).set(newDbUser);
+          } else {
+            setDbUser(userDocData);
+          }
+        });
 
-      setUserId(currentUser.uid);
-      setFirebaseUser(currentUser);
-      setIsAuth(!!currentUser);
+        setUserId(currentUser.uid);
+        setFirebaseUser(currentUser);
+        setIsAuth(!!currentUser);
+      }
     });
 
     return () => {

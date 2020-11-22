@@ -5,6 +5,7 @@ import PacienteProvider, { PacienteContext } from '../../contexts/paciente';
 import PacienteSelector from './components/PacienteSelector';
 import PacienteContatos from './components/PacienteContatos';
 import PacienteInfo from './components/PacienteInfo';
+import Calendario from './components/Calendario';
 
 function Profile() {
   const paciente = useContext(PacienteContext);
@@ -20,6 +21,7 @@ function Profile() {
     >
       <PacienteInfo pacienteDb={pacienteDb} />
       <PacienteContatos pacienteDb={pacienteDb} />
+      <Calendario pacienteDb={pacienteDb} />
     </PageHeader>
   );
 }

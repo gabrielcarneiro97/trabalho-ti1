@@ -1,11 +1,13 @@
 import React, { useState, useContext } from 'react';
 import firebase from 'firebase';
-import { Modal, Form, Input, Button, Divider } from 'antd';
+import { Modal, Form, Input, Button, Divider, DatePicker } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+
+import moment from 'moment';
 
 import { PacienteContext } from '../../../contexts/paciente';
 
-export default function AddContatoPacienteModal() {
+export default function AddMedicamentoModal() {
   const paciente = useContext(PacienteContext);
   const { id: pacienteId } = paciente;
 
@@ -20,8 +22,18 @@ export default function AddContatoPacienteModal() {
   const onFinish = async (values) => {
     setLoading(true);
 
+    const remedio = {
+      nome: values.nome,
+      inicio: values.inicio.toDate(),
+      fim: values.fim.toDate(),
+      horaDia: {
+        hora: moment(values.hora).hour(),
+        minutos: moment(values.hora).minutes(),
+      }
+    }
+
     await pacienteDoc.update({
-      contatos: firebase.firestore.FieldValue.arrayUnion(values),
+      remedios: firebase.firestore.FieldValue.arrayUnion(remedio),
     });
 
     setLoading(false);
@@ -34,47 +46,48 @@ export default function AddContatoPacienteModal() {
 
   return (
     <>
-      <Button type="primary" icon={<PlusOutlined />} onClick={toggleVisibility}>Adicionar Contato</Button>
+      <Button type="primary" icon={<PlusOutlined />} onClick={toggleVisibility}>Adicionar Medicamento</Button>
       <Modal
         visible={visible}
         onCancel={toggleVisibility}
-        title="Cadastrar Contato"
+        title="Cadastrar Medicamento"
         style={{ minWidth: '30vw' }}
         footer={null}
         destroyOnClose
       >
         <Form
           size="large"
-          name="cadastro-contato"
+          name="cadastro-medicamento"
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
           <Form.Item
-            label="Nome do Contato"
+            label="Nome do Medicamento"
             name="nome"
             rules={[{ required: true, message: 'Insira o nome do paciente!' }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            label="Grau de Relação com o Paciente"
-            name="grau"
-            rules={[{ required: true, message: 'Insira o grau de relacionamento!' }]}
+            label="Início do Uso"
+            name="inicio"
+            rules={[{ required: true, message: 'Insira a data de início!' }]}
           >
-            <Input />
+            <DatePicker format="DD/MM/YYYY" style={{ width: '100%' }} placeholder="Selecione uma data" />
           </Form.Item>
           <Form.Item
-            label="Telefone"
-            name="telefone"
-            rules={[{ required: true, message: 'Insira o telefone do contato!' }]}
+            label="Fim do Uso"
+            name="fim"
+            rules={[{ required: true, message: 'Insira data de fim!' }]}
           >
-            <Input />
+            <DatePicker format="DD/MM/YYYY" style={{ width: '100%' }} placeholder="Selecione uma data" />
           </Form.Item>
           <Form.Item
-            label="E-mail"
-            name="email"
+            label="Hora de Uso"
+            name="hora"
+            rules={[{ required: true, message: 'Insira a hora!' }]}
           >
-            <Input />
+            <DatePicker picker="time" />
           </Form.Item>
           <Divider />
           <Form.Item style={{ textAlign: 'end' }}>

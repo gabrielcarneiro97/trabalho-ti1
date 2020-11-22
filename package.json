@@ -12,9 +12,11 @@
     "firebase": "^7.23.0",
     "moment": "^2.29.1",
     "react": "^16.13.1",
+    "react-big-calendar": "^0.28.6",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "rrule": "^2.6.6"
   },
   "scripts": {
     "start": "npx react-scripts start",

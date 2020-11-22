@@ -7,6 +7,8 @@ import ContatoCard from './ContatoCard';
 export default function PacienteContatos(props) {
   const { pacienteDb = null } = props;
 
+  const contatos = pacienteDb?.contatos || [];
+
   return (
     <div>
       {
@@ -22,7 +24,7 @@ export default function PacienteContatos(props) {
             <Row>
               <Col span={24}>
                 {
-                  pacienteDb.contatos.map((contato, i) => <ContatoCard contato={contato} key={i} />)
+                  contatos.map((contato, i) => <ContatoCard contato={contato} key={i} />)
                 }
               </Col>
             </Row>
