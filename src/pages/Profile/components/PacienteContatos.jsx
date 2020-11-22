@@ -1,6 +1,7 @@
 import React from 'react';
-import { Divider } from 'antd';
+import { Divider, Row, Col } from 'antd';
 import AddContatoPacienteModal from './AddContatoPacienteModal';
+import ContatoCard from './ContatoCard';
 
 
 export default function PacienteContatos(props) {
@@ -13,7 +14,18 @@ export default function PacienteContatos(props) {
         && (
           <>
             <Divider>Contatos</Divider>
-            <AddContatoPacienteModal />
+            <Row justify="end">
+              <Col>
+                <AddContatoPacienteModal />
+              </Col>
+            </Row>
+            <Row>
+              <Col span={24}>
+                {
+                  pacienteDb.contatos.map((contato, i) => <ContatoCard contato={contato} key={i} />)
+                }
+              </Col>
+            </Row>
           </>
         )
       }

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import firebase from 'firebase';
-import { Modal, Form, Input, Button, DatePicker, Divider } from 'antd';
+import { Modal, Form, Input, Button, Divider } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 
 import { PacienteContext } from '../../../contexts/paciente';
 
@@ -16,8 +17,6 @@ export default function AddContatoPacienteModal() {
   const db = firebase.firestore();
   const pacienteDoc = db.collection('pacientes').doc(pacienteId);
 
-  console.log(pacienteDoc);
-
   const onFinish = async (values) => {
     setLoading(true);
 
@@ -27,7 +26,6 @@ export default function AddContatoPacienteModal() {
 
     setLoading(false);
     toggleVisibility();
-    console.log('Success:', values);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -36,7 +34,7 @@ export default function AddContatoPacienteModal() {
 
   return (
     <>
-      <Button onClick={toggleVisibility}>Adicionar Contato</Button>
+      <Button type="primary" icon={<PlusOutlined />} onClick={toggleVisibility}>Adicionar Contato</Button>
       <Modal
         visible={visible}
         onCancel={toggleVisibility}
