@@ -7,6 +7,7 @@ import { RRule } from 'rrule';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import AddMedicamentoModal from './AddMedicamentoModal';
+import AddEventoDiarioModal from './AddEventoDiarioModal';
 
 const localizer = momentLocalizer(moment);
 
@@ -18,6 +19,7 @@ export default function Calendario(props) {
 
   useEffect(() => {
     const remedios = pacienteDb?.remedios || [];
+    const eventos = pacienteDb?.eventosDiarios || [];
 
     const es = remedios.map((remedio, rIndex) => {
       const rule = new RRule({
@@ -32,11 +34,27 @@ export default function Calendario(props) {
         end: moment(e).set({ hour: remedio.horaDia.hora + 1, minutes: remedio.horaDia.minutos }).toDate(),
         title: `Remédio: ${remedio.nome}`,
       }));
-    });
+    }).concat(eventos.map((evento, evIndex) => {
+      const rule = new RRule({
+        freq: RRule.DAILY,
+        dtstart: evento.inicio.toDate(),
+        until: evento.fim.toDate(),
+      });
+
+      return rule.all().map((e, eId) => ({
+        id: `e${evIndex}-e:${eId}`,
+        start: moment(e).set({ hour: evento.horaDia.hora, minutes: evento.horaDia.minutos }).toDate(),
+        end: moment(e).set({ hour: evento.horaDia.hora + 1, minutes: evento.horaDia.minutos }).toDate(),
+        title: `Evento: ${evento.nome}`,
+      }));
+    }));
+
 
     setEvents(es.flat());
 
   }, [pacienteDb]);
+
+  console.log(events);
 
   return (
     <>
@@ -45,9 +63,12 @@ export default function Calendario(props) {
         && (
           <>
             <Divider>Calendario</Divider>
-            <Row  justify="end" style={{ marginBottom: 10 }}>
+            <Row gutter={16} justify="end" style={{ marginBottom: 10 }}>
               <Col>
                 <AddMedicamentoModal />
+              </Col>
+              <Col>
+                <AddEventoDiarioModal />
               </Col>
             </Row>
             <Calendar
@@ -58,11 +79,11 @@ export default function Calendario(props) {
               startAccessor="start"
               endAccessor="end"
               eventPropGetter={(e) => {
-                console.log(e);
                 if (e.title.includes('Remédio')) {
                   return {
                     style: {
                       backgroundColor: '#1890ff',
+                      color: 'white'
                     }
                   }
                 }
@@ -71,6 +92,7 @@ export default function Calendario(props) {
                   return {
                     style: {
                       backgroundColor: '#fff',
+                      color: 'black',
                       border: 'solid 1.5px'
                     }
                   }
